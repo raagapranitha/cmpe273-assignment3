@@ -1,5 +1,6 @@
 import sys
 import socket
+import os
 
 from server_config import NODES
 from pickle_hash import deserialize, hash_code_hex,serialize
@@ -29,7 +30,8 @@ class UDPServer():
         payload = None
         if 'payload' in request: 
             payload = request['payload']
-        print(f'operation={operation}\nid={key}\npayload={payload}')
+        print(f'operation={operation} in SERVER')
+        # print(f'operation={operation} in SERVER \nid={key}\npayload={payload}')
         response = self.handle_operation(operation, key, payload)
         return response
 
@@ -65,7 +67,7 @@ class UDPServer():
 
         while True:
             data, ip = s.recvfrom(BUFFER_SIZE)
-            print("{}:size={}".format(ip, len(data)))
+            print("ip={}:size={}".format(ip, len(data)))
             response = self.extract_request(data)
             # reply back to the client
             if isinstance(response, str):
@@ -82,5 +84,8 @@ if __name__ == "__main__":
     node_index = int(sys.argv[1])
     node = NODES[node_index]
     udpServer = UDPServer(node['host'], node['port'])
-    print('Cache Server[{}] started at {}:{}'.format(node_index, node['host'], node['port']))
+    print('Cache Server[{}] started at {}:{}:{}'.format(node_index, node['host'], node['port'],os.getpid()))
+    # f= open("processes.txt","a+")
+    #         f.write(str(ip[1]) + "\n")
+    #         f.close() 
     udpServer.run()

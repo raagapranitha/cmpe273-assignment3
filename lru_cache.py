@@ -32,8 +32,8 @@ class Lru_Cache:
 
     def print_all_nodes(self):
         temp = self.head
-        while(temp.next!= None):
-            print("In lru cache print all")
+        print("In lru cache print all")
+        while(temp):
             print(temp.data)
             temp = temp.next
 
@@ -51,10 +51,11 @@ class Lru_Cache:
         self.head.prev = new_node
         self.head = new_node
         print(f'{data} inserted into cache')
+        self.print_all_nodes()
 
     def get_from_cache(self,data):
         temp = self.head
-        while(temp.next != None):
+        while(temp!= None):
             if(temp.data == data):
                 break
             temp = temp.next
@@ -99,4 +100,5 @@ class Lru_Cache:
         if remove.prev != None:
             remove.next.prev = remove.prev   
         print(f'deleted node with data {remove.data} from lru_cache')
+        self.print_all_nodes()
 
