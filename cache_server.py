@@ -39,7 +39,7 @@ class UDPServer():
             # TODO: PART I - implement GET retrieval from self.db.xxxxx
             var =self.db[key.decode()]
             var = serialize(var)
-            print(f'Log in get 2 {var}')
+            # print(f'Log in get 2 {var}')
             return (str(var)).encode()
             # return "FIX ME".encode()
         elif operation == 'PUT':
@@ -47,10 +47,12 @@ class UDPServer():
         elif operation =='DELETE':
             # removed_value = self.db[key.decode()].pop(key) 
             # if removed_value == value:
-            print(key)
-            print(self.db)
+            # print(key)
+           
+            print(f'{self.db} before delete')
             del self.db[key.decode()]
-            print(self.db)
+            print(f'{self.db} after deleting {key}')
+
             return "Success".encode()
         else:
             print(f'Error: Invalid operation={operation}')

@@ -10,6 +10,10 @@ class Lru_Cache:
     def __init__(self,capacity):
         self.head = None
         self.capacity = capacity
+        print(f'Lru cache initialised with size {self.capacity}')
+    
+    def getSize(self):
+        return self.capacity
 
     def getCount(self): 
             temp = self.head  
@@ -33,7 +37,7 @@ class Lru_Cache:
             print(temp.data)
             temp = temp.next
 
-    def insert_into_cache(self,data,capacity):
+    def insert_into_cache(self,data):
         new_node = Lru_Node(data)
         # new_node.data = data
         if self.head is None:
@@ -46,8 +50,9 @@ class Lru_Cache:
         new_node.next = self.head
         self.head.prev = new_node
         self.head = new_node
+        print(f'{data} inserted into cache')
 
-    def get_from_cache(self,data,capacity):
+    def get_from_cache(self,data):
         temp = self.head
         while(temp.next != None):
             if(temp.data == data):
@@ -72,27 +77,26 @@ class Lru_Cache:
         self.head = current
         print("In lru_cache in get")
         print(self.head.data)
-        self.print_all_nodes()
+        # self.print_all_nodes()
         return self.head.data
 
     def delete_from_cache(self,data):
         temp =self.head
         while(temp.next != None):
-            print("In delete lru while loop")
-            print(data)
-            print(temp.data)
+            # print("In delete lru while loop")
+            # print(data)
+            # print(temp.data)
             if temp.data == data:
                 print(temp.data)
                 break
             temp = temp.next
         else:
-            print("In lru_cache delete Data not in cache")
+            print("In delete Data not in lru_cache")
             return 
         remove = temp
         if remove.next != None:
             remove.prev.next = remove.next
         if remove.prev != None:
             remove.next.prev = remove.prev   
-        print("In delete from cache")
-        print(f'deleted node with data {remove.data}')
+        print(f'deleted node with data {remove.data} from lru_cache')
 
