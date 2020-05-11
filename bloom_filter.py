@@ -39,21 +39,24 @@ class BloomFilter:
             key = hashlib.md5(key).digest()
             val = int.from_bytes(key, byteorder='big')
             hash_gen = (val)%self.mBit_count
+            key = str(hash_gen)
             hashes.append(hash_gen)
             self.bit_array[hash_gen]=1
         print(f'{key} added to bloom filter')
 
     def delete(self,key):
         hashes = []
+        entry = key
         for i in range (self.hash_count):
             if isinstance(key,str):
                 key = key.encode("utf-8")
             key = hashlib.md5(key).digest()
             val = int.from_bytes(key, byteorder='big')
             hash_gen = (val)%self.mBit_count
+            key = str(hash_gen)
             hashes.append(hash_gen)
             self.bit_array[hash_gen]=0
-        print(f'Deleted {key} from bloom filter')
+        print(f'Deleted {entry} from bloom filter')
 
     def is_member(self,key):
         for i in range(self.hash_count):
@@ -62,6 +65,7 @@ class BloomFilter:
             key = hashlib.md5(key).digest()
             val = int.from_bytes(key, byteorder='big')
             hash_gen = (val)%self.mBit_count
+            key = str(hash_gen)
             if self.bit_array[hash_gen] == 0:
                 return False  
         return True

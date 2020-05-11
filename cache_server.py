@@ -30,8 +30,8 @@ class UDPServer():
         payload = None
         if 'payload' in request: 
             payload = request['payload']
-        print(f'operation={operation} in SERVER')
-        # print(f'operation={operation} in SERVER \nid={key}\npayload={payload}')
+        # print(f'operation={operation} in SERVER')
+        print(f'operation={operation} in SERVER \nid={key}\npayload={payload}')
         response = self.handle_operation(operation, key, payload)
         return response
 
@@ -40,16 +40,11 @@ class UDPServer():
         if operation == 'GET':
             # TODO: PART I - implement GET retrieval from self.db.xxxxx
             var =self.db[key.decode()]
-            var = serialize(var)
-            # print(f'Log in get 2 {var}')
+            # var = serialize(var)
             return (str(var)).encode()
-            # return "FIX ME".encode()
         elif operation == 'PUT':
             return self.db.put(key, value)
         elif operation =='DELETE':
-            # removed_value = self.db[key.decode()].pop(key) 
-            # if removed_value == value:
-            # print(key)
            
             print(f'{self.db} before delete')
             del self.db[key.decode()]
