@@ -41,9 +41,8 @@ def post_users():
             response = UDPClient(node['host'], node['port']).send(data_bytes)
             hash_codes.add(response)
             bf.add(response)
-            print(f'Hash codes for all users: {hash_codes}  {len(hash_codes)}')
         return hash_codes
-        print(f"Number of Users={len(USERS)}\nNumber of Users in hash_codes={len(hash_codes)}")
+        # print(f"Number of Users={len(USERS)}\nNumber of Users in hash_codes={len(hash_codes)}")
        
         
        
@@ -53,7 +52,6 @@ def get_users(hc):
         data_bytes, key = serialize_GET(hc)
         print(f'In GET {data_bytes},{key}')
         if bf.is_member(key):
-            print("Data found in bloom filter")
             node = myOb.get_node(key)
             response =  UDPClient(node['host'], node['port']).send(data_bytes)
         else:
@@ -69,7 +67,7 @@ def delete_users(hc):
             response =  UDPClient(node['host'], node['port']).send(data_bytes)
             if(response.decode()=='Success'):
                 print('Deleted Succesfully')
-                bf.delete(key)
+                # bf.delete(key)
         else:
             print("Data not in bloom filter and probably not in server")
     
