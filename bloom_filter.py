@@ -67,10 +67,3 @@ class BloomFilter:
             if self.bit_array[hash_gen] == 0:
                 return False  
         return True
-
-
-def test():
-    bf = BloomFilter(1000000,0.05)
-    print(bf.get_m())
-    print(bf.get_hash_count())
-test()

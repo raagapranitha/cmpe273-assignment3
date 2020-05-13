@@ -9,14 +9,13 @@
 # x=`lsof -Fp -i:4003`
 # kill -9 ${x##p}
 
-input="processes.txt"
+
 while IFS= read -r line
 do
   echo "killing $line"
   kill "$line"
 done < "$input"
 
-rm "processes.txt"
 
 python3 cache_server.py 0 &
 python3 cache_server.py 1 &

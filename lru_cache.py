@@ -3,7 +3,6 @@ from collections import OrderedDict
 func_name =""
 def lru_cache(size): 
     def real_decorator(function):
-        print(function.__name__)
         def wrapper(*args,**kwargs):
             global func_name
             global lru_dict
